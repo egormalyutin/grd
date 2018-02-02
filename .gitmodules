@@ -1,0 +1,3 @@
+[submodule "libs/hlp"]
+	path = libs/hlp
+	url = https://github.com/malyutinegor/hlp/
