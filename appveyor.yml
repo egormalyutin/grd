@@ -1,0 +1,12 @@
+environment:
+  nodejs_version: "9.5.0"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm i -g gulp-cli
+  - npm i
+
+test_script:
+  - node --version
+  - npm --version
+  - npm test
