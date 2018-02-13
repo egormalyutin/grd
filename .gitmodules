@@ -1,3 +1,12 @@
-[submodule "libs/hlp"]
-	path = libs/hlp
-	url = https://github.com/malyutinegor/hlp/
+[submodule "app/libs/hump"]
+	path = app/libs/hump
+	url = git://github.com/vrld/hump
+[submodule "app/libs/sti"]
+	path = app/libs/sti
+	url = https://github.com/karai17/Simple-Tiled-Implementation.git
+[submodule "app/libs/loc"]
+	path = app/libs/loc
+	url = https://github.com/malyutinegor/loc
+[submodule "loc"]
+	path = app/libs/loc
+	url = https://github.com/malyutinegor/loc

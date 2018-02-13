@@ -1,0 +1,8 @@
+/build
+/buildfiles
+/dist
+/icon.ico
+/yarn.lock
+/yarn-error.log
+/package-lock.json
+/node_modules
