@@ -30,6 +30,9 @@ del        = require 'del'
 BuildFiles = require './buildfiles.js'
 bf = undefined
 
+noop = through.obj()
+gulp.task 'noop', -> return Promise.resolve()
+
 
 ##############
 # BUILDFILES #
@@ -102,6 +105,7 @@ BUILDERS =
 ##########
 
 CONFIG_NAME = '/config.lua'
+TEST = process.env.TEST
 
 
 ###########
@@ -210,7 +214,10 @@ gulp.task 'start:dist', ->
 	]
 	return gulp.src ['app/**/*', ignorify(ignored)...]
 		.pipe gif('*.+(png|jpg|gif|svg)', cache imagemin())
-		.pipe addGameConfig 'production'
+		.pipe if TEST
+					addGameConfig 'test'
+				else
+					addGameConfig 'production'
 		.pipe gulp.dest 'dist'
 
 gulp.task 'start:copy-build', ->
@@ -292,6 +299,9 @@ gulp.task 'get:buildfiles', ->
 		return Promise.resolve()
 
 
+gulp.task 'test', ->
+	console.log 'TEST!'
+	return Promise.resolve()
 
 # MIX TASKS
 
@@ -302,6 +312,7 @@ gulp.task 'build', gulp.series(
 	'build:main'
 	'build:copy-icon'
 	'build:rcedit'
+	if TEST then 'test' else 'noop'
 	)
 
 gulp.task 'default', gulp.series 'build'
