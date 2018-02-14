@@ -70,7 +70,7 @@ BUILDFILES =
 					.pipe filter 'data.tar.xz'
 					.pipe decompress plugins: [tarxz()]
 					.pipe filter 'usr/bin/love'
-					.pipe rename 'game'
+					.pipe rename 'love'
 
 			arches: [
 				'i386'
@@ -106,6 +106,7 @@ BUILDERS =
 					file.contents
 					love
 				]
+				log 'Built Linux executable ' + chalk.blue file.path
 			.pipe gif("love", rename "game")
 
 	windows: (buildfiles, love) ->
@@ -116,7 +117,7 @@ BUILDERS =
 					file.contents
 					love
 				]
-				log 'Built executable ' + chalk.blue file.path
+				log 'Built Windows executable ' + chalk.blue file.path
 			.pipe gif("love.exe", rename "game.exe")
 
 BUNDLERS = 
@@ -348,8 +349,9 @@ gulp.task 'test', ->
 # MIX TASKS
 
 gulp.task 'build', gulp.series(
-	gulp.parallel 'clean:dist', 'clean:build', 
-	gulp.parallel 'get:buildfiles', 'start:dist', 'build:love', 'build:icon'
+	gulp.parallel 'get:buildfiles', 'clean:dist', 'clean:build'
+	'start:dist', 
+	gulp.parallel 'build:love', 'build:icon'
 	'build:main'
 	'build:copy-icon'
 	'build:rcedit'

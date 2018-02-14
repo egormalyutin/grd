@@ -101,7 +101,7 @@ BUILDFILES = {
       prepare: function(file) {
         return file.pipe(ar()).pipe(filter('data.tar.xz')).pipe(decompress({
           plugins: [tarxz()]
-        })).pipe(filter('usr/bin/love')).pipe(rename('game'));
+        })).pipe(filter('usr/bin/love')).pipe(rename('love'));
       },
       arches: ['i386', 'amd64', 'armhf']
     },
@@ -126,13 +126,14 @@ BUILDFILES = {
 BUILDERS = {
   linux: function(buildfiles, love) {
     return buildfiles.pipe(gif('love', tap(function(file) {
-      return file.contents = Buffer.concat([file.contents, love]);
+      file.contents = Buffer.concat([file.contents, love]);
+      return log('Built Linux executable ' + chalk.blue(file.path));
     }))).pipe(gif("love", rename("game")));
   },
   windows: function(buildfiles, love) {
     return buildfiles.pipe(ignore(['love.ico', 'lovec.exe', 'changes.txt', 'readme.txt'])).pipe(gif('love.exe', tap(function(file) {
       file.contents = Buffer.concat([file.contents, love]);
-      return log('Built executable ' + chalk.blue(file.path));
+      return log('Built Windows executable ' + chalk.blue(file.path));
     }))).pipe(gif("love.exe", rename("game.exe")));
   }
 };
@@ -362,6 +363,6 @@ gulp.task('test', function() {
 });
 
 // MIX TASKS
-gulp.task('build', gulp.series(gulp.parallel('clean:dist', 'clean:build', gulp.parallel('get:buildfiles', 'start:dist', 'build:love', 'build:icon')), 'build:main', 'build:copy-icon', 'build:rcedit', 'build:zip', TEST ? 'test' : 'noop'));
+gulp.task('build', gulp.series(gulp.parallel('get:buildfiles', 'clean:dist', 'clean:build'), 'start:dist', gulp.parallel('build:love', 'build:icon'), 'build:main', 'build:copy-icon', 'build:rcedit', 'build:zip', TEST ? 'test' : 'noop'));
 
 gulp.task('default', gulp.series('build'));
