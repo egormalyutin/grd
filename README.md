@@ -1,0 +1,1 @@
+[![Windows builds](https://img.shields.io/appveyor/ci/egorcod/grd.svg?style=flat-square)](https://ci.appveyor.com/project/egorcod/grd) [![Linux builds](https://img.shields.io/travis/malyutinegor/grd.svg?style=flat-square)](https://travis-ci.org/malyutinegor/grd) 
