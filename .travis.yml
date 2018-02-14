@@ -18,5 +18,7 @@ deploy:
   file:
     - build/zips/*
   skip_cleanup: true
+  name: 'Game release'
   on:
     repo: malyutinegor/grd
+    tags: true
