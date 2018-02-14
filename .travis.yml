@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+
+cache:
+  directories:
+    - "node_modules"
+
+addons:
+  apt:
+    packages:
+      - wine
+
+before_install:
+  - npm i -g gulp-cli
