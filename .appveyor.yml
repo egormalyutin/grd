@@ -13,7 +13,7 @@ cache:
 test_script:
   - node --version
   - npm --version
+  - gulp
   - gulp test
 
-build:
-  - gulp
+build: off
