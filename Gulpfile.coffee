@@ -43,6 +43,7 @@ rcedit     = require 'rcedit'
 path       = require 'path'
 fs         = require 'fs'
 del        = require 'del'
+chalk      = require 'chalk'
 
 BuildFiles = require './buildfiles.js'
 bf = undefined
@@ -115,7 +116,19 @@ BUILDERS =
 					file.contents
 					love
 				]
+				log 'Built executable ' + chalk.blue file.path
 			.pipe gif("love.exe", rename "game.exe")
+
+BUNDLERS = 
+	linux: (build, arch) ->
+		return build
+			.pipe zip 'linux-' + arch + '.zip'
+			.pipe debug title: 'Built Linux zip archive'
+
+	windows: (build, arch) ->
+		return build
+			.pipe zip 'windows-' + arch + '.zip'
+			.pipe debug title: 'Built Windows zip archive'
 
 ##########
 # CONSTS #
@@ -270,6 +283,18 @@ gulp.task "build:main", ->
 
 	merge streams...
 
+gulp.task "build:zip", ->
+	streams = []
+	for name, bundler of BUNDLERS
+		platform = BUILDFILES.platforms[name]
+		for arch in platform.arches
+			files = gulp.src "build/#{name}/#{arch}/**/*"
+
+			streams.push(bundler files, arch
+				.pipe gulp.dest "build/zips")
+
+	merge streams...
+
 gulp.task 'build:icon', (cb) ->
 	unless exists 'icon.ico'
 		gulp.src 'app/assets/sprites/icon.png'
@@ -310,7 +335,7 @@ gulp.task 'get:buildfiles', ->
 		bf = new BuildFiles BUILDFILES
 
 		return bf.compiled.stream
-			.pipe debug title: 'Loaded buildfile'
+			.pipe debug title: 'Downloaded buildfile'
 			.pipe gulp.dest BUILDFILES_DIR
 	else
 		return Promise.resolve()
@@ -323,12 +348,12 @@ gulp.task 'test', ->
 # MIX TASKS
 
 gulp.task 'build', gulp.series(
-	gulp.parallel 'get:buildfiles', 'clean:dist', 'clean:build'
-	'start:dist', 
-	gulp.parallel 'build:love', 'build:icon'
+	gulp.parallel 'clean:dist', 'clean:build', 
+	gulp.parallel 'get:buildfiles', 'start:dist', 'build:love', 'build:icon'
 	'build:main'
 	'build:copy-icon'
 	'build:rcedit'
+	'build:zip'
 	if TEST then 'test' else 'noop'
 	)
 
