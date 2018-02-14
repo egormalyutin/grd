@@ -27,6 +27,7 @@ sudo npm i -g gulp-cli
 npm i
 ```
 
+[Wine]: https://winehq.org/
 [git]: https://git-scm.com/
 [repository]: https://github.com/malyutinegor/grd
 [Node.JS]: https://nodejs.org/
