@@ -4,6 +4,7 @@
   "description": "Install Git. ```bash $ git submodule init $ git submodule update ```",
   "main": "Gulpfile.js",
   "scripts": {
+    "postinstall": "git submodule init; git submodule update",
     "test": "gulp",
     "config": "coffee -w -b -c ./*.coffee"
   },
