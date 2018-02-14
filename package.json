@@ -39,6 +39,7 @@
     "gulp-zip": "^4.1.0",
     "merge-stream": "^1.0.1",
     "mustache": "^2.3.0",
-    "rcedit": "^0.9.0"
+    "rcedit": "^0.9.0",
+    "which": "^1.3.0"
   }
 }
