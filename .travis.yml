@@ -14,11 +14,9 @@ deploy:
   provider: releases
   api_key:
     secure: UhJXYH+i4A4IX3DO9JSP27+t49HEU2/NHE0+n1H/TuxM5qJwb5is9B4WWeqfbSUeHvs52W4cAs7xSg3R8NwwhC0wUIBebxNKRJNNeju4AFcJqeYwjMTTch+88Y4WsE+nIFcqN+J6se+qwBhHQvgLKxJ5+u875z5J/lnMoL7p0zCxzFiFPHEPBKCavfNAfTDk7lQXAa0/tunaIJAPS5SVCbMTGgHgFwP0bNIgOJ0N71+YwqwrkRy2O/OmH6ZjABCBKmrNJEWmhuNdhU6wEpwuqAzjvS/ndYm2PPWHFfKcZZGbtv3TRGeFvSdeUJ5IgtdXZcqgPeusiEs68GmOio+siMjXQfm0no3lCcaDApU6zq+qb388jfLFywbBxW/ztfbEM6m+dCG9EESHYsr5FiOSttk58ewmEy3KY1y7NsKgfExTKNwwKy8LXIOBRjgg0Zv6ZOM/PcsIFjTWjB0kVGqXpsnHw4ULgA0zlAphHreigkf6DV7+EVqzJ37fqgoKZJCx0MGwu71eCk/RoxvHG9+s9C0FwRnj0JAUoVsxtCX851yZOHMC/+UaAnS7JDFCnOV+5rYukBw7MIHEdqjjbYDGEA+vmcK3bwnPaXIsK5fD0hXh4q/uzskP80vwmD7VvlrQzLHJvcVfMzKnCa3YhGm2a1Cw2ONGcjxaJkf5nzn5JLE=
+  file_glob: true
   file:
-    - build/zips/windows-win32.zip
-    - build/zips/windows-win64.zip
-    - build/zips/linux-i386.zip
-    - build/zips/linux-amd64.zip
-    - build/zips/linux-armhf.zip
+    - build/zips/*
+  skip_cleanup: true
   on:
     repo: malyutinegor/grd
