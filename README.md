@@ -1,15 +1,11 @@
 [![Windows builds](https://img.shields.io/appveyor/ci/egorcod/grd.svg?style=flat-square)](https://ci.appveyor.com/project/egorcod/grd) [![Linux builds](https://img.shields.io/travis/malyutinegor/grd.svg?style=flat-square)](https://travis-ci.org/malyutinegor/grd) 
 
-# Building
-
-## Run
-Simply execute `gulp`.
+# Installation
 
 ## On Windows
-
 You need to install [Node.JS] and [git], clone this [repository], install [Gulp] and this module dependencies.
 You can easily do it with [Chocolatey]: 
-```cmd
+```bash
 choco install nodejs git
 # Reopen your terminal for update PATH!
 git clone https://github.com/malyutinegor/grd
@@ -26,6 +22,12 @@ git clone https://github.com/malyutinegor/grd
 sudo npm i -g gulp-cli
 npm i
 ```
+
+## On macOS
+Not supported.
+
+# Building
+Execute `gulp`.
 
 [Wine]: https://winehq.org/
 [git]: https://git-scm.com/

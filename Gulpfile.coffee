@@ -1,13 +1,18 @@
+log = require 'fancy-log'
+
 try 
 	gulp = require 'gulp'
 catch e
 	throw new Error 'Run "npm i" before starting Gulp tasks!'
 
 # check wine
-unless process.platform.match 'win'
+if process.platform.match 'linux'
+	log 'Detected Linux environment!'
 	try require('which').sync 'wine'
 	catch 
 		throw new Error 'You need "wine" for build this game on Linux! It\'s needed for edit Windows executable icon and manifest.'
+else
+	log 'Detected non-Linux environment!'
 
 
 # PLUGINS
