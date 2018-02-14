@@ -1,24 +1,41 @@
 language: node_js
+
 node_js:
 - '7'
+
+# cache node modules
 cache:
   directories:
   - node_modules
+
+# install wine
 addons:
   apt:
     packages:
     - wine
+
+# install gulp
 before_install:
 - npm i -g gulp-cli
+
+# send to GitHub releases
 deploy:
   provider: releases
+
   api_key:
     secure: UhJXYH+i4A4IX3DO9JSP27+t49HEU2/NHE0+n1H/TuxM5qJwb5is9B4WWeqfbSUeHvs52W4cAs7xSg3R8NwwhC0wUIBebxNKRJNNeju4AFcJqeYwjMTTch+88Y4WsE+nIFcqN+J6se+qwBhHQvgLKxJ5+u875z5J/lnMoL7p0zCxzFiFPHEPBKCavfNAfTDk7lQXAa0/tunaIJAPS5SVCbMTGgHgFwP0bNIgOJ0N71+YwqwrkRy2O/OmH6ZjABCBKmrNJEWmhuNdhU6wEpwuqAzjvS/ndYm2PPWHFfKcZZGbtv3TRGeFvSdeUJ5IgtdXZcqgPeusiEs68GmOio+siMjXQfm0no3lCcaDApU6zq+qb388jfLFywbBxW/ztfbEM6m+dCG9EESHYsr5FiOSttk58ewmEy3KY1y7NsKgfExTKNwwKy8LXIOBRjgg0Zv6ZOM/PcsIFjTWjB0kVGqXpsnHw4ULgA0zlAphHreigkf6DV7+EVqzJ37fqgoKZJCx0MGwu71eCk/RoxvHG9+s9C0FwRnj0JAUoVsxtCX851yZOHMC/+UaAnS7JDFCnOV+5rYukBw7MIHEdqjjbYDGEA+vmcK3bwnPaXIsK5fD0hXh4q/uzskP80vwmD7VvlrQzLHJvcVfMzKnCa3YhGm2a1Cw2ONGcjxaJkf5nzn5JLE=
+
+  # release all files in builds/zips 
   file_glob: true
   file:
     - build/zips/*
+
+  # don't delete files before deploy
   skip_cleanup: true
+
   name: 'Game release'
+  draft: false
+
   on:
     repo: malyutinegor/grd
     tags: true
