@@ -206,17 +206,17 @@ gulp.task 'moon', ->
 
 
 # CLEAN TASKS
-gulp.task 'clean:buildfiles', (cb) ->
-	del ['buildfiles'], cb
+gulp.task 'clean:buildfiles', ->
+	await del 'buildfiles'
 
-gulp.task 'clean:dist', (cb) ->
-	del ['dist'], cb
+gulp.task 'clean:dist', ->
+	await del 'dist'
 
-gulp.task 'clean:build', (cb) ->
-	del ['build'], cb
+gulp.task 'clean:build', ->
+	await del 'build'
 
-gulp.task 'clean:icon', (cb) ->
-	del ['icon.ico'], cb
+gulp.task 'clean:icon', ->
+	await del 'icon.ico'
 
 gulp.task 'clean', gulp.parallel('clean:buildfiles', 'clean:dist', 'clean:build', 'clean:icon')
 
@@ -349,7 +349,8 @@ gulp.task 'test', ->
 # MIX TASKS
 
 gulp.task 'build', gulp.series(
-	gulp.parallel 'get:buildfiles', 'clean:dist', 'clean:build'
+	gulp.parallel 'clean:dist', 'clean:build'
+	'get:buildfiles',
 	'start:dist', 
 	gulp.parallel 'build:love', 'build:icon'
 	'build:main'
